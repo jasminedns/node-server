@@ -81,7 +81,7 @@ http.createServer((req, res) => {
         res.write("<a href='/pt'>Clicca per il Portoghese</a>");
         
 
-        fs.readFile('./html/ita.html', (err, data) => { 
+        fs.readFile('./pages/ita.html', (err, data) => { 
             if (err) {
                 res.write("<p>Something went wrong</p>");
                 res.end();
@@ -98,7 +98,7 @@ http.createServer((req, res) => {
         res.write("<a href='/ita'>Klick här för italienska</a>");
         res.write("<a href='/pt'>Klick här för portugisiska</a>");
 
-        fs.readFile('./html/swe.html', (err, data) => { 
+        fs.readFile('./pages/swe.html', (err, data) => { 
             if (err) {
                 res.write("<p>Something went wrong</p>");
                 res.end();
@@ -118,7 +118,7 @@ http.createServer((req, res) => {
         res.write(
             `<div>
                 <p>
-                    Essa página está em português porque minha mãe é brasileira e tive o privilégio de aprender-l nestes últimos anos.                
+                    Essa página está em português porque minha mãe é brasileira e tive o privilégio de aprender-la nestes últimos anos.                
                 </p>
             </div>`
         );
