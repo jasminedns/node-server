@@ -5,9 +5,11 @@ const url = require("url");
 
 http.createServer((req, res) => {
     const fullpath = url.parse(req.url, true);
-    res.writeHead(200, "Working good!", {"Content-type" : "text/html; charset=UTF-8"});
+    const pathName = fullpath.pathname;
+    const queries = fullpath.query;
+    res.writeHead(200, "Working good!", {"Content-Type": "text/html; charset=UTF-8"});
 
-    if (req.url === "/") {
+    if (pathName === "/") {
         res.write("<h1>Welcome to the International version!</h1>");
         res.write("<p>Everything's in English here!</p>");
         res.write("<a href='/ita'>Click here for Italian</a>");
@@ -27,47 +29,49 @@ http.createServer((req, res) => {
                 <a href='?lang=us'>American English</a>
                 and 
                 <a href='?lang=au'>Australian English</a>
-            </p>`);
-
-        let queries = fullpath.query;
+            </p>`
+        );
 
         if (queries.lang === "gb") {
             fs.readFile("./data/gb.html", (err, data) => {
+
                 if (err) {
                     res.write("<p>Ooops.. something went wrong</p>");
-                    res.end();
                 } else {
                     res.write(data);
-                    res.end();
                 }
+
+                res.end(); 
+
             });
-        }
 
-        if (queries.lang === "us") {
+        } else if (queries.lang === "us") {
             fs.readFile("./data/us.html", (err, data) => {
+
                 if (err) {
                     res.write("<p>Ooops.. something went wrong</p>");
-                    res.end();
                 } else {
                     res.write(data);
-                    res.end();
                 }
-            });        
-        }
 
-        if (queries.lang === "au") {
+                res.end(); 
+
+            });        
+        } else if (queries.lang === "au") {
+
             fs.readFile("./data/au.html", (err, data) => {
                 if (err) {
                     res.write("<p>Ooops.. something went wrong</p>");
-                    res.end();
                 } else {
                     res.write(data);
-                    res.end();
                 }
-            });        
-        }
 
-        res.end();
+                res.end(); 
+
+            });   
+        } else {
+            res.end();
+        }
 
     } else if (req.url === "/ita") { 
         res.write("<h1>Benvenuti alla versione italiana!</h1>");
@@ -105,7 +109,7 @@ http.createServer((req, res) => {
             }
         });
         
-    } else if (req.url === "/pt") { 
+    } else if (pathName === "/pt") { 
         res.write("<h1>Bem-vindo à versão em português!</h1>");
         res.write("<p>Está tudo em português aqui!</p>");
         res.write("<a href='/'>Clique para a versão internacional</a>");
@@ -118,7 +122,32 @@ http.createServer((req, res) => {
                 </p>
             </div>`
         );
-        res.end();
+        res.write(`<p>Você pode até escolher de ver o resto em:
+                <a href='?lang=brpt'>Português brasileiro</a> and
+                <a href='?lang=ptpt'>Portugal Português</a>
+            </p>`)
+
+        if (queries.lang === "brpt") {
+            fs.readFile("./data/brpt.html", (err, data) => {
+                if (err) {
+                    res.write("<p>Algo deu errado</p>");
+                } else {
+                    res.write(data);
+                }
+                res.end();
+            });
+        } else if (queries.lang === "ptpt") {
+            fs.readFile("./data/ptpt.html", (err, data) => {
+                if (err) {
+                    res.write("<p>Algo deu errado</p>");
+                } else {
+                    res.write(data);
+                }
+                res.end();
+            });
+        } else {
+            res.end();
+        }
 
 
     } else {
