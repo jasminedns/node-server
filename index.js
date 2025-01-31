@@ -118,7 +118,7 @@ http.createServer((req, res) => {
         res.write(
             `<div>
                 <p>
-                    Questa pagina è in italiano perché è la mia lingua madre e credo che sia senza dubbio la più bella lingua del mondo!
+                    Essa página está em português porque minha mãe é brasileira e tive o privilégio de aprender-l nestes últimos anos.                
                 </p>
             </div>`
         );
